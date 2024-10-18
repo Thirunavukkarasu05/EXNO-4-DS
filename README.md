@@ -1,13 +1,21 @@
 # EXNO:4-DS
+NAME : THIRUNAVUKKARASU P
+REG NO:212222040173
+
 # AIM:
 To read the given data and perform Feature Scaling and Feature Selection process and save the
 data to a file.
 
 # ALGORITHM:
+
 STEP 1:Read the given Data.
+
 STEP 2:Clean the Data Set using Data Cleaning Process.
+
 STEP 3:Apply Feature Scaling for the feature in the data set.
+
 STEP 4:Apply Feature Selection for the feature in the data set.
+
 STEP 5:Save the data to the file.
 
 # FEATURE SCALING:
@@ -24,179 +32,253 @@ The feature selection techniques used are:
 3.Embedded Method
 
 # CODING AND OUTPUT:
-      
+
 ```
-NAME : THIRUNAVUKKARASU P
-REG NO : 212222040173
+import pandas as pd
+from scipy import stats
+import numpy as np
+df=pd.read_csv("/content/bmi.csv")
+df.head()
 ```
-```python
+<img width="216" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/2aea6717-ef53-42bb-b94c-5228a301c51b">
+
+```
+df.dropna()
+```
+
+<img width="214" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/8b146d52-1bff-4afe-95ad-1fd1b34c1890">
+
+```
+max_vals=np.max(np.abs(df[['Height','Weight']]))
+max_vals
+
+```
+<img width="46" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/76a9d44b-b7de-43b0-b4c5-4fa2369743cd">
+
+```
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+df[['Height','Weight']]=sc.fit_transform(df[['Height','Weight']])
+df.head(10)
+```
+
+<img width="204" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/c1e1b5ab-3592-4f38-9696-9e394eb38a08">
+
+```
+from sklearn.preprocessing import MinMaxScaler
+scaler=MinMaxScaler()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df.head(10)
+```
+
+<img width="196" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/cc1b1e0b-0a00-455f-b3aa-2820d2eaea4c">
+
+```
+from sklearn.preprocessing import Normalizer
+scaler=Normalizer()
+df[['Height','Weight']]=scaler.fit_transform(df[['Height','Weight']])
+df
+```
+
+<img width="214" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/d55c9d08-42a1-4106-9fb0-dad172a28cfd">
+
+```
+df1=pd.read_csv("/content/bmi.csv")
+from sklearn.preprocessing import MaxAbsScaler
+scaler=MaxAbsScaler()
+df1[['Height','Weight']]=scaler.fit_transform(df1[['Height','Weight']])
+df1
+
+```
+<img width="210" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/1a21a595-3a30-43de-9dd9-abc59ff86dd8">
+
+```
+df2=pd.read_csv("/content/bmi.csv")
+from sklearn.preprocessing import RobustScaler
+scaler=RobustScaler()
+df2[['Height','Weight']]=scaler.fit_transform(df2[['Height','Weight']])
+df2.head()
+```
+
+<img width="203" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/df58bc4e-e7c9-49d4-ba54-c61123297ee1">
+
+```
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
-
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix
-
-data=pd.read_csv("/content/income(1) (1).csv",na_values=[ " ?"])
+from sklearn.metrics import accuracy_score,confusion_matrix
+data=pd.read_csv('/content/income(1) (1).csv',na_values=[" ?"])
 data
 ```
-![Screenshot 2024-10-03 105005](https://github.com/user-attachments/assets/0d9200b4-6128-4b3b-98e3-170372362ef5)
 
-```python
+<img width="818" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/1eb413c2-b5a1-4d89-a654-d96a5cbc64b0">
 
+```
 data.isnull().sum()
 ```
-![Screenshot 2024-10-03 105135](https://github.com/user-attachments/assets/b05b9502-8a24-4bfb-aa06-13ef1ae5f64f)
 
-```python
+<img width="119" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/9a0b6c2c-4c0c-46b9-91ad-475f04ce3562">
 
+```
 missing=data[data.isnull().any(axis=1)]
 missing
 ```
-![image](https://github.com/user-attachments/assets/e10b79af-1d96-40f8-a8a1-5146569fcbc5)
 
-```python
+<img width="794" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/2b5bbfb3-9315-472c-a097-8adee8f4578f">
 
-data2=data.dropna(axis=0)
+```
+data2 = data.dropna(axis=0)
 data2
+
 ```
-![image](https://github.com/user-attachments/assets/8c5b6868-7bcb-49aa-a739-11123eab2c47)
+<img width="812" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/e0209e9d-dfa7-4245-8d6a-6c695e6728bc">
 
-```python
-sal=data["SalStat"]
-
-data2["SalStat"]=data["SalStat"].map({' less than or equal to 50,000':0,' greater than 50,000':1})
+```
+sal=data['SalStat']
+data2['SalStat']=data2['SalStat'].map({' less than or equal to 50,000':0,' greater than 50,000':1})
 print(data2['SalStat'])
+
 ```
-![image](https://github.com/user-attachments/assets/38b17801-5354-492b-b271-48c6cfa672c6)
+<img width="670" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/c3919808-6ed9-432e-b83e-9aff94a35994">
 
-```python
+```
+
 sal2=data2['SalStat']
-
 dfs=pd.concat([sal,sal2],axis=1)
 dfs
 ```
-![image](https://github.com/user-attachments/assets/dbb67bf2-8038-40d6-8ca6-af150e17bb3c)
-```python
+
+<img width="204" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/a2ce5564-7e32-481d-9547-e5943afb5c15">
+
+```
 data2
 ```
-![image](https://github.com/user-attachments/assets/f230751f-8c5e-4cad-8e59-282ff7ce9f59)
-```python
+
+<img width="745" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/a4fc1de3-8051-4743-81c6-c054bcb95f7d">
+
+```
 new_data=pd.get_dummies(data2, drop_first=True)
 new_data
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f21819e3-a5bd-47e6-b1b7-9bc08b64bed9)
-```python
 
+<img width="752" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/7eef042e-6822-4ac5-a574-b19476d68a9a">
+
+```
 columns_list=list(new_data.columns)
 print(columns_list)
+
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/8af6f5ce-4d99-4ed6-9371-730aeaa5a56b)
-```python
+<img width="901" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/2958db03-4ee4-4d69-8a09-2154b7756727">
 
-
+```
 features=list(set(columns_list)-set(['SalStat']))
 print(features)
+
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/5f31a677-7d30-417a-8044-d5db741cafbf)
-```python
+<img width="892" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/fd4a58e0-39ef-426f-89d3-ff7af0fffd98">
+
+ ```
 y=new_data['SalStat'].values
 print(y)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f4c779af-4c87-449e-9daa-be5d8d275212)
-```python
+[0 0 1 ... 0 0 0]
 
-x=new_data[features].values
+```
+x = new_data[features].values
 print(x)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/4154db03-4c87-4b98-a13b-964f19bee9b0)
-```python
 
-train_x,test_x,train_y,test_y=train_test_split(x,y,test_size=0.3,random_state=0)
+<img width="203" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/6ad70fd2-6946-4995-be0e-801b3b2f0212">
 
+```
+train_x,test_x,train_y,test_y = train_test_split(x,y,test_size=0.3, random_state=0)
 KNN_classifier=KNeighborsClassifier(n_neighbors = 5)
-
 KNN_classifier.fit(train_x,train_y)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/e5e02520-eb39-436c-ac2e-e43048c1d672)
-```python
 
-prediction=KNN_classifier.predict(test_x)
+<img width="140" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/4c854a00-85d9-4d76-b57e-292d13ba84ee">
 
-confusionMatrix=confusion_matrix(test_y, prediction)
-print(confusionMatrix)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/a6eedfe3-aedd-4500-958f-6faafd54f464)
-```python
+prediction = KNN_classifier.predict(test_x)
+confusionMmatrix = confusion_matrix(test_y, prediction)
+print(confusionMmatrix)
 
-accuracy_score=accuracy_score(test_y,prediction)
+```
+<img width="55" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/2aae088f-279f-4f33-8137-b712dc580d9e">
+
+```
+accuracy_score=accuracy_score(test_y, prediction)
 print(accuracy_score)
-```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/0e56ff41-2f35-4d01-b479-53547391567b)
-```python
 
-print("Misclassified Samples : %d" % (test_y !=prediction).sum())
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/4af5ed3f-362a-40c6-a438-c89f31584e51)
-```python
+0.8392087523483258
+```
 
+print('Misclassified samples: %d' % (test_y != prediction).sum())
+```
+
+Misclassified samples: 1455
+
+```
 data.shape
+
+(31978, 13)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/1986f990-26e6-4b42-acfc-b2a6e52f8042)
-```python
 
-import pandas as pd
-from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_classif
-data={
-    'Feature1': [1,2,3,4,5],
-    'Feature2': ['A','B','C','A','B'],
-    'Feature3': [0,1,1,0,1],
-    'Target'  : [0,1,1,0,1]
-}
+## FEATURE SELECTION TECHNIQUES
 
-df=pd.DataFrame(data)
-x=df[['Feature1','Feature3']]
-y=df[['Target']]
-
-selector=SelectKBest(score_func=mutual_info_classif,k=1)
-x_new=selector.fit_transform(x,y)
-
-selected_feature_indices=selector.get_support(indices=True)
-
-selected_features=x.columns[selected_feature_indices]
-print("Selected Features:")
-print(selected_features)
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/20777b0d-3cdb-4ae9-80e4-1f76ed093191)
-```python
-
 import pandas as pd
 import numpy as np
 from scipy.stats import chi2_contingency
-
 import seaborn as sns
 tips=sns.load_dataset('tips')
 tips.head()
-```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/6d6f7ff2-b1da-4568-9cd1-cb6fa9553cd6)
-```python
 
-tips.time.unique()
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/f77bc757-8a31-4a5d-be15-5a447e6549c6)
-```python
+<img width="257" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/ee1738f1-e407-493b-a162-dc1ef444d0e4">
 
+```
 contingency_table=pd.crosstab(tips['sex'],tips['time'])
 print(contingency_table)
-```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/06365e9f-f51b-4cf6-ab04-8a136726a025)
-```python
 
-chi2,p,_,_=chi2_contingency(contingency_table)
-print(f"Chi-Square Statistics: {chi2}")
-print(f"P-Value: {p}")
 ```
-![image](https://github.com/Yamunaasri/EXNO-4-DS/assets/115707860/6adc4da7-421c-458f-9ec6-f6158aa6f731)
-# RESULT:
-Thus, Feature selection and Feature scaling has been used on thegiven dataset.
+<img width="139" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/51bcc338-6dad-4de6-92c9-bfbbcfaafeb0">
+
+```
+chi2, p, _, _ = chi2_contingency(contingency_table)
+print(f"Chi-Square Statistic: {chi2}")
+print(f"P-value: {p}")
+
+```
+<img width="206" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/72746275-4a20-4305-9e80-3bbf1ed0a806">
+
+```
+import pandas as pd
+from sklearn.feature_selection import SelectKBest, mutual_info_classif, f_classif
+data={
+    'Feature1':[1,2,3,4,5],
+    'Feature2': ['A','B','C','A','B'],
+    'Feature3':[0,1,1,0,1],
+    'Target' :[0,1,1,0,1]
+}
+df=pd.DataFrame(data)
+X=df[['Feature1','Feature3']]
+y=df['Target']
+selector=SelectKBest(score_func=mutual_info_classif, k=1)
+X_new = selector.fit_transform (X,y)
+selected_feature_indices = selector.get_support(indices=True)
+selected_features = X.columns[selected_feature_indices]
+print("Selected Features:")
+print(selected_features)
+
+```
+<img width="194" alt="image" src="https://github.com/KayyuruTharani/EXNO-4-DS/assets/142209319/66eac5dc-973c-4cee-833a-21a3ceb5fc61">
+
+
+
+## RESULT:
+To read the given data and perform Feature Scaling and Feature Selection process and save the data to a file is successful.
