@@ -1,4 +1,4 @@
-# EXNO:4-DS
+# EXNO:4 Feature Scaling and Selection
 ```
 NAME : THIRUNAVUKKARASU P
 REG NO:212222040173
